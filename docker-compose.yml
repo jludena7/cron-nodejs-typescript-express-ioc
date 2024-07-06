@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  mongo-db-cron:
+    ports:
+      - '27019:27017'
+    env_file: ./.env
+    image: mongo:latest
+    container_name: mongo-db-cron
+    restart: always
+    logging:
+      options:
+        max-size: 1g
+    environment:
+      - MONGO_INITDB_DATABASE=${DOCKER_DB_NAME}
+      - MONGO_INITDB_ROOT_USERNAME=${DOCKER_DB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DOCKER_DB_ROOT_PASSWORD}
+    expose:
+      - '27019'
+    volumes:
+      - mongo-db-data:/data/db
+volumes:
+  mongo-db-data:
